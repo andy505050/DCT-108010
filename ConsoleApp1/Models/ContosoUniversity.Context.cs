@@ -12,6 +12,8 @@ namespace ConsoleApp1.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class ContosoUniversityEntities : DbContext
     {
@@ -30,5 +32,14 @@ namespace ConsoleApp1.Models
         public virtual DbSet<Enrollment> Enrollment { get; set; }
         public virtual DbSet<OfficeAssignment> OfficeAssignment { get; set; }
         public virtual DbSet<Person> Person { get; set; }
+    
+        public virtual ObjectResult<GetCourse_Result> GetCourse(string keyword)
+        {
+            var keywordParameter = keyword != null ?
+                new ObjectParameter("keyword", keyword) :
+                new ObjectParameter("keyword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCourse_Result>("GetCourse", keywordParameter);
+        }
     }
 }

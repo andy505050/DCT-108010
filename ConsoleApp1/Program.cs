@@ -56,13 +56,20 @@ namespace ConsoleApp1
                 //});
                 //db.SaveChanges();
 
-                var dept = db.Department.Find(1);
+                //var dept = db.Department.Find(1);
 
-                dept.Budget += 1;
+                //dept.Budget += 1;
 
-                Console.ReadKey();
+                //Console.ReadKey();
 
-                db.SaveChanges();
+                //db.SaveChanges();
+
+                var data = db.GetCourse("Git");
+
+                foreach (var item in data)
+                {
+                    Console.WriteLine(item.Title);
+                }
 
             }
         }
@@ -168,14 +175,14 @@ namespace ConsoleApp1
             dept.Course.Add(new Course()
             {
                 Title = "ASP.NET MVC 5 開發實戰",
-                Credits = 1,
+                Credits = Credits.VeryGood,
                 Department = dept
             });
 
             dept.Course.Add(new Course()
             {
                 Title = "Angular 7 開發實戰",
-                Credits = 1,
+                Credits = Credits.VeryGood,
                 Department = dept
             });
 
@@ -197,7 +204,7 @@ namespace ConsoleApp1
 
             foreach (var course in new_dept.Course)
             {
-                course.Credits = 5;
+                course.Credits = Credits.VeryGood;
                 Console.WriteLine("\t" + course.Title + "\t" + course.Credits);
             }
 
