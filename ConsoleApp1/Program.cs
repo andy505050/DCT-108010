@@ -37,7 +37,8 @@ namespace ConsoleApp1
             {
                 Name = "酷奇資訊",
                 Budget = 18000,
-                StartDate = new DateTime(2019, 6, 1, 0, 0, 0)
+                StartDate = new DateTime(2019, 6, 1, 0, 0, 0),
+                UpdatedOn = DateTime.Now
             };
 
             dept.Course.Add(new Course()
@@ -75,6 +76,8 @@ namespace ConsoleApp1
                 course.Credits = 5;
                 Console.WriteLine("\t" + course.Title + "\t" + course.Credits);
             }
+
+            new_dept.UpdatedOn = DateTime.Now;
 
             Console.WriteLine("------ 更新該部門所有課程的 Credits 分數 ------");
 

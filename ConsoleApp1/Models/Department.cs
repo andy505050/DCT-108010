@@ -26,6 +26,8 @@ namespace ConsoleApp1.Models
         public System.DateTime StartDate { get; set; }
         public Nullable<int> InstructorID { get; set; }
         public byte[] RowVersion { get; set; }
+        public System.DateTime CreatedOn { get; set; }
+        public System.DateTime UpdatedOn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Course> Course { get; set; }
