@@ -15,6 +15,11 @@ namespace ConsoleApp1
 
             db.Database.Log = (msg) => Console.WriteLine(msg);
 
+            SelectCourseByGitOrderByCredits(db);
+        }
+
+        private static void SelectCourseByGitOrderByCredits(ContosoUniversityEntities db)
+        {
             var c = from p in db.Course
                     where p.Title.StartsWith("Git")
                     orderby p.Credits descending
