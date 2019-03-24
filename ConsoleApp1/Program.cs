@@ -1,9 +1,7 @@
 ﻿using ConsoleApp1.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace ConsoleApp1
 {
@@ -11,22 +9,32 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            var db = new ContosoUniversityEntities();
-
-            db.Database.Log = (msg) =>
+            using (var db = new ContosoUniversityEntities())
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine(msg);
-                Console.ResetColor();
-            };
+                db.Database.Log = (msg) =>
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine(msg);
+                    Console.ResetColor();
+                };
 
-            //SelectCourseByGitOrderByCredits(db);
+                //SelectCourseByGitOrderByCredits(db);
 
-            //SelectCourseWithRelation(db);
-            //Console.WriteLine("--");
-            //SelectDepartmentWithRelation(db);
+                //SelectCourseWithRelation(db);
+                //Console.WriteLine("--");
+                //SelectDepartmentWithRelation(db);
 
-            PracticeCRUD(db);
+                //PracticeCRUD(db);
+
+                db.Configuration.LazyLoadingEnabled = false;
+
+                foreach (var item in db.Course.Include(p => p.Department))
+                {
+                    Console.WriteLine(item.Title);
+                    Console.WriteLine(item.Department.Name);
+                    Console.WriteLine();
+                }
+            }
 
 
         }
@@ -121,7 +129,7 @@ namespace ConsoleApp1
         private static void SelectDepartmentWithRelation(ContosoUniversityEntities db)
         {
             var dept = from p in db.Department
-                    select p;
+                       select p;
 
             foreach (var item in dept)
             {
