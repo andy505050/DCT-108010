@@ -13,9 +13,11 @@ namespace ConsoleApp1
         {
             var db = new ContosoUniversityEntities();
 
-            db.Database.Log = (msg) => Console.WriteLine(msg);
+            //db.Database.Log = (msg) => Console.WriteLine(msg);
 
-            SelectCourseByGitOrderByCredits(db);
+            SelectCourseWithRelation(db);
+            Console.WriteLine("--");
+            SelectDepartmentWithRelation(db);
         }
 
         private static void SelectCourseByGitOrderByCredits(ContosoUniversityEntities db)
@@ -31,6 +33,33 @@ namespace ConsoleApp1
             foreach (var item in c)
             {
                 Console.WriteLine(item.Title);
+            }
+        }
+
+        private static void SelectCourseWithRelation(ContosoUniversityEntities db)
+        {
+            var c = from p in db.Course
+                    select p;
+
+            foreach (var item in c)
+            {
+                Console.WriteLine(item.Department.Name + "\t" + item.Title);
+            }
+        }
+
+        private static void SelectDepartmentWithRelation(ContosoUniversityEntities db)
+        {
+            var dept = from p in db.Department
+                    select p;
+
+            foreach (var item in dept)
+            {
+                Console.WriteLine(item.Name);
+
+                foreach (var c in item.Course)
+                {
+                    Console.WriteLine("\t" + c.Title);
+                }
             }
         }
     }
