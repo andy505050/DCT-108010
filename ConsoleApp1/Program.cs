@@ -27,6 +27,7 @@ namespace ConsoleApp1
                 //PracticeCRUD(db);
 
                 db.Configuration.LazyLoadingEnabled = false;
+                db.Configuration.ProxyCreationEnabled = false;
 
                 foreach (var item in db.Course.Include(p => p.Department))
                 {
