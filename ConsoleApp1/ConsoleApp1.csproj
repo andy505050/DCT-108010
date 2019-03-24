@@ -61,6 +61,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ContosoUniversity.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ContosoUniversityEntitiesPartial.cs" />
     <Compile Include="Models\Course.cs">
       <DependentUpon>ContosoUniversity.tt</DependentUpon>
     </Compile>
