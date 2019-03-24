@@ -30,32 +30,39 @@ namespace ConsoleApp1
 
                 //PracticeLazyLoading(db);
 
-                var course = db.Course.Find(1);
+                //ManyToManyAddWithExceptionHandling(db);
 
-                course.Instructors.Add(new Person()
-                {
-                    FirstName = "Will",
-                    LastName = "Huang",
-                    HireDate = DateTime.Now
-                    //Discriminator = ""
-                });
 
-                try
+            }
+        }
+
+        private static void ManyToManyAddWithExceptionHandling(ContosoUniversityEntities db)
+        {
+            var course = db.Course.Find(1);
+
+            course.Instructors.Add(new Person()
+            {
+                FirstName = "Will",
+                LastName = "Huang",
+                HireDate = DateTime.Now
+                //Discriminator = ""
+            });
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var eve in ex.EntityValidationErrors)
                 {
-                    db.SaveChanges();
-                }
-                catch (DbEntityValidationException ex) 
-                {
-                    StringBuilder sb = new StringBuilder();
-                    foreach (var eve in ex.EntityValidationErrors)
+                    foreach (var ve in eve.ValidationErrors)
                     {
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            sb.AppendLine($"欄位 {ve.PropertyName} 發生錯誤: {ve.ErrorMessage}");
-                        }
+                        sb.AppendLine($"欄位 {ve.PropertyName} 發生錯誤: {ve.ErrorMessage}");
                     }
-                    throw new Exception(sb.ToString(), ex);
                 }
+                throw new Exception(sb.ToString(), ex);
             }
         }
 
