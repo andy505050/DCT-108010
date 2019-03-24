@@ -34,7 +34,27 @@ namespace ConsoleApp1
 
                 //AsNoTracking(db);
 
+                //DemoAttachAndEntityState(db);
+
             }
+        }
+
+        private static void DemoAttachAndEntityState(ContosoUniversityEntities db)
+        {
+            var dept = new Department()
+            {
+                DepartmentID = 17,
+                Name = "酷奇資訊2",
+                Budget = 18000,
+                StartDate = new DateTime(2019, 6, 1, 0, 0, 0),
+                UpdatedOn = DateTime.Now
+            };
+
+            db.Department.Attach(dept);
+
+            dept.Name = "3";
+
+            db.SaveChanges();
         }
 
         private static void AsNoTracking(ContosoUniversityEntities db)
