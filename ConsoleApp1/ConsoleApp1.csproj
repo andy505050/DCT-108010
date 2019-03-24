@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\ContosoUniversity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

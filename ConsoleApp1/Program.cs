@@ -15,9 +15,13 @@ namespace ConsoleApp1
 
             //db.Database.Log = (msg) => Console.WriteLine(msg);
 
-            SelectCourseWithRelation(db);
-            Console.WriteLine("--");
-            SelectDepartmentWithRelation(db);
+            //SelectCourseByGitOrderByCredits(db);
+
+            //SelectCourseWithRelation(db);
+            //Console.WriteLine("--");
+            //SelectDepartmentWithRelation(db);
+
+
         }
 
         private static void SelectCourseByGitOrderByCredits(ContosoUniversityEntities db)
