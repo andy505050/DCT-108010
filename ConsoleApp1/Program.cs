@@ -15,7 +15,13 @@ namespace ConsoleApp1
 
             db.Database.Log = (msg) => Console.WriteLine(msg);
 
-            var c = db.Course.Where(p => p.Title.StartsWith("Git")).ToList();
+            var c = from p in db.Course
+                    where p.Title.StartsWith("Git")
+                    orderby p.Credits descending
+                    select new
+                    {
+                        p.Title
+                    };
 
             foreach (var item in c)
             {
