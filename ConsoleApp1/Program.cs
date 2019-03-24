@@ -36,7 +36,29 @@ namespace ConsoleApp1
 
                 //DemoAttachAndEntityState(db);
 
+
+                //var dept = new Department()
+                //{
+                //    DepartmentID = 17,
+                //    Name = "酷奇資訊2",
+                //    Budget = 18000,
+                //    StartDate = new DateTime(2019, 6, 1, 0, 0, 0),
+                //    UpdatedOn = DateTime.Now
+                //};
+
+                //DemoEntityEntryRemove(db);
+
             }
+        }
+
+        private static void DemoEntityEntryRemove(ContosoUniversityEntities db)
+        {
+
+            //var dept = db.Department.Find(22);
+            //db.Department.Remove(dept);
+            var dept = db.Department.Attach(new Department() { DepartmentID = 22 });
+            db.Entry(dept).State = EntityState.Deleted;
+            db.SaveChanges();
         }
 
         private static void DemoAttachAndEntityState(ContosoUniversityEntities db)
