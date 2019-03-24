@@ -32,7 +32,18 @@ namespace ConsoleApp1
 
                 //ManyToManyAddWithExceptionHandling(db);
 
+                //AsNoTracking(db);
 
+            }
+        }
+
+        private static void AsNoTracking(ContosoUniversityEntities db)
+        {
+            var data = db.Course.AsNoTracking();
+
+            foreach (var item in data)
+            {
+                Console.WriteLine(item.Title);
             }
         }
 
