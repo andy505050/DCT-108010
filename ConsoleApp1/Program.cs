@@ -48,12 +48,20 @@ namespace ConsoleApp1
 
                 //DemoEntityEntryRemove(db);
 
-                var dept = db.Department.Add(new Department()
-                {
-                    Name = "酷奇資訊3",
-                    Budget = 18000,
-                    StartDate = new DateTime(2019, 6, 1, 0, 0, 0)
-                });
+                //var dept = db.Department.Add(new Department()
+                //{
+                //    Name = "酷奇資訊3",
+                //    Budget = 18000,
+                //    StartDate = new DateTime(2019, 6, 1, 0, 0, 0)
+                //});
+                //db.SaveChanges();
+
+                var dept = db.Department.Find(1);
+
+                dept.Budget += 1;
+
+                Console.ReadKey();
+
                 db.SaveChanges();
 
             }
