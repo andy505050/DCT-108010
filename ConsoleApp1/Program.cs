@@ -29,10 +29,17 @@ namespace ConsoleApp1
                 db.Configuration.LazyLoadingEnabled = false;
                 db.Configuration.ProxyCreationEnabled = false;
 
-                foreach (var item in db.Course.Include(p => p.Department))
+                var data = from p in db.Course.Include(p => p.Department)
+                           select new
+                           {
+                               CourseTitle = p.Title,
+                               DeptName = p.Department.Name
+                           };
+
+                foreach (var item in data)
                 {
-                    Console.WriteLine(item.Title);
-                    Console.WriteLine(item.Department.Name);
+                    Console.WriteLine(item.CourseTitle);
+                    Console.WriteLine(item.DeptName);
                     Console.WriteLine();
                 }
             }
