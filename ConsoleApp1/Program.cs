@@ -2,6 +2,8 @@
 using System;
 using System.Linq;
 using System.Data.Entity;
+using System.Text;
+using System.Data.Entity.Validation;
 
 namespace ConsoleApp1
 {
@@ -26,25 +28,55 @@ namespace ConsoleApp1
 
                 //PracticeCRUD(db);
 
-                db.Configuration.LazyLoadingEnabled = false;
-                db.Configuration.ProxyCreationEnabled = false;
+                //PracticeLazyLoading(db);
 
-                var data = from p in db.Course.Include(p => p.Department)
-                           select new
-                           {
-                               CourseTitle = p.Title,
-                               DeptName = p.Department.Name
-                           };
+                var course = db.Course.Find(1);
 
-                foreach (var item in data)
+                course.Instructors.Add(new Person()
                 {
-                    Console.WriteLine(item.CourseTitle);
-                    Console.WriteLine(item.DeptName);
-                    Console.WriteLine();
+                    FirstName = "Will",
+                    LastName = "Huang",
+                    HireDate = DateTime.Now
+                    //Discriminator = ""
+                });
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException ex) 
+                {
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var eve in ex.EntityValidationErrors)
+                    {
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            sb.AppendLine($"欄位 {ve.PropertyName} 發生錯誤: {ve.ErrorMessage}");
+                        }
+                    }
+                    throw new Exception(sb.ToString(), ex);
                 }
             }
+        }
 
+        private static void PracticeLazyLoading(ContosoUniversityEntities db)
+        {
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
 
+            var data = from p in db.Course.Include(p => p.Department)
+                       select new
+                       {
+                           CourseTitle = p.Title,
+                           DeptName = p.Department.Name
+                       };
+
+            foreach (var item in data)
+            {
+                Console.WriteLine(item.CourseTitle);
+                Console.WriteLine(item.DeptName);
+                Console.WriteLine();
+            }
         }
 
         private static void PracticeCRUD(ContosoUniversityEntities db)
